@@ -358,3 +358,4 @@ mobile-app-ws/.idea/misc.xml
 mobile-app-ws/.idea/modules.xml
 mobile-app-ws/.idea/vcs.xml
 mobile-app-ws/mobile-app-ws.iml
+*.lst

@@ -9,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.appsdeveloperblog.app.ws.SpringApplicationContext;
+import com.appsdeveloperblog.app.ws.service.UserService;
+import com.appsdeveloperblog.app.ws.shared.dto.UserDto;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,11 +36,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) {
 
 		try {
-			UserLoginRequestModel creds = new ObjectMapper().readValue(req.getInputStream(),
+			UserLoginRequestModel credential = new ObjectMapper().readValue(req.getInputStream(),
 					UserLoginRequestModel.class);
 
 			return authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>()));
+					new UsernamePasswordAuthenticationToken(credential.getEmail(), credential.getPassword(), new ArrayList<>()));
 		} catch (IOException e) {
 			throw new RuntimeException();
 		}
@@ -52,6 +55,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 				.setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
 				.signWith(SignatureAlgorithm.HS512, SecurityConstants.TOKEN_SECRET)
 				.compact();
+		UserService userService = (UserService) SpringApplicationContext.getBean("userServiceImpl");
+		UserDto userDto =userService.getUser(username);
+		res.addHeader("UserId", userDto.getUserId());
 		res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
 	}
 

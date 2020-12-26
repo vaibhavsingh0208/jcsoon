@@ -360,3 +360,8 @@ mobile-app-ws/.idea/vcs.xml
 mobile-app-ws/mobile-app-ws.iml
 *.lst
 mobile-app-ws/.idea/uiDesigner.xml
+mobile-app-ws/target/.DS_Store
+mobile-app-ws/.idea/libraries/Maven__org_codehaus_woodstox_stax2_api_4_2_1.xml
+mobile-app-ws/.idea/libraries/Maven__com_fasterxml_woodstox_woodstox_core_6_2_1.xml
+mobile-app-ws/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_11_3.xml
+mobile-app-ws/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_11_3.xml
